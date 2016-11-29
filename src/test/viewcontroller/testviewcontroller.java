@@ -5,17 +5,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class testviewcontroller {
-	@RequestMapping("test")
+	@RequestMapping("/test")
 	public String view() {
-		return "member/login";
+		return "/test/NewFile";
 	}
 	@RequestMapping("/test1")
 	public String view1() {
-		return "test/test";
+		return "test/NewFile";
 	}
 	@RequestMapping("/test2")
 	public String view2() {
-		return "upload";
+		return "feed";
 	}
 	
 }

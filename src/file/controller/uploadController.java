@@ -20,8 +20,10 @@ public class uploadController {
 	@RequestMapping("/file/upload")
 	public ModelAndView upfile(String title, String comments,
 			@RequestParam(name = "file") MultipartFile file, HttpSession session) {
+		
+		System.out.println("/file/upload µé¾î¿È!!");
 		String id =(String)session.getAttribute("userId");
-		String uid = ups.execute(file, id, title, comments);
+		String uid = ups.execute(file, id, comments);
 		ModelAndView mav = new ModelAndView();
 		if (uid != null) {
 			mav.setViewName("t:upview");

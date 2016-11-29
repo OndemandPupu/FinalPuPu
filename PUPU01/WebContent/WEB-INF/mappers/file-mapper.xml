@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="files">
+	<insert id="upLoad" parameterType="java.util.HashMap">
+		insert into fileupload
+		values(fileupload_seq.nextval, #{id }, #{comments}, sysdate, #{fileuuid}, #{name }, #{cate })
+	</insert>
+	<insert id="liker" parameterType="java.util.HashMap">
+		insert into likepeople values(#{l_fileuuid}, #{l_selectliker }, 0)
+	</insert>
+	<select id="likercheck" parameterType="java.util.HashMap" resultType="java.lang.String">
+		select * from likepeople where l_selectliker = #{l_selectliker } and l_fileuuid = #{l_fileuuid }
+	</select>
+	<select id="likerList" resultType="java.util.HashMap" parameterType="java.lang.String">
+		<![CDATA[
+	  		 select temp.* from
+	      		(select * from FILEUPLOAD a, LIKEPEOPLE b where a.fileuuid = b.l_fileuuid) temp
+	      			where fileuuid = #{fileuuid}
+		]]>
+	</select>
+	<select id="setlike" resultType="java.util.HashMap" parameterType="java.lang.String">
+		select l_selectliker, l_fileuuid from likepeople where l_fileuuid =#{l_fileuuid}
+	</select>
+	<select id="getFile" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from fileupload where fileuuid = #{fileuuid }
+	</select>
+	<select id="getAllFile" resultType="java.util.HashMap">
+		select * from fileupload order by num desc
+	</select>
+	<select id="getAllFile2" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from fileupload  where id = #{id }
+	</select>
+	<update id="likeupdate" parameterType="java.util.HashMap">
+		update likepeople set l_likes =
+		l_likes +1 where l_selectliker=#{l_selectliker } and l_fileuuid=#{l_fileuuid }
+	</update>
+	<delete id="likeBye" parameterType="java.util.HashMap">
+		delete from likepeople where l_fileuuid= #{l_fileuuid } and l_selectliker = #{l_selectliker}
+	</delete>
+	
+	
+	<update id="fileupdate" parameterType="java.lang.String">
+		update fileupload set count =
+		count +1 where fileuuid=#{fileuuid }
+	</update>
+	<delete id="writeout"  parameterType="java.lang.String">
+		delete from fileupload where fileuuid= #{fileuuid} 
+	</delete>
+</mapper>

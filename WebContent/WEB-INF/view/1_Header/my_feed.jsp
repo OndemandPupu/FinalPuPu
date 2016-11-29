@@ -58,21 +58,29 @@ html, body, h1, h2, h3, h4, h5 {
 	<br>
 
 
-	<div class="w3-row-padding">
 		<div class="w3-col m12">
 			<div class="w3-card-2 w3-round w3-white">
 				<div class="w3-container w3-padding">
-					<h6 class="w3-opacity"><a>${userId}</a>님</h6>
-					<p contenteditable="true" class="w3-border w3-padding"></p>
-					<pre id="list1" style="height: auto; "></pre>
+					<h6 class="w3-opacity"><a href="/test2">${userId}</a>님</h6>
+					<form action="/file/upload" method="post" enctype="multipart/form-data">
+					<p contenteditable="true" class="w3-border w3-padding">
+					
+					<input
+							type="text" name="comments" placeholder="타이틀..."
+											class="form-first-name form-control" id="title"/>
+					</p>
+					<pre id="list1" style="height: 220px; width:220px; "></pre>
 					<input type="file" id="up_files" name="file" onchange="handleFileSelect()" />
-					<button type="button" class="w3-btn w3-theme">
+					<button type="submit" class="w3-btn w3-theme" >
 						<i class="fa fa-pencil"></i>  올리기
 					</button>
+				</form>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
 
 	<div class="w3-container w3-card-2 w3-white w3-round w3-margin">
 		<br> <img src="/w3images/avatar2.png" alt="Avatar"
@@ -181,7 +189,8 @@ function openNav() {
             return function(e) 
             {
                 //이미지 뷰
-                var img_view = ['<img src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');                
+                var img_view = ['<img src="', e.target.result, '" title="', escape(theFile.name), '"  style= "width:200px;height:200px;  " />'].join('');                
+                alert(img_view);
                 document.getElementById('list1').innerHTML = img_view;
             };
  
